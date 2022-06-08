@@ -1,34 +1,27 @@
 import { useState } from 'react';
-import { useDispatch, useSelector } from 'react-redux';
+import { useSelector } from 'react-redux';
 import { useNavigate } from 'react-router-dom';
 
-// import { addNewPost } from './postsSlice';
+import { useAddNewPostMutation, useGetUsersQuery } from '../api/apiSlice';
 import { selectAllUsers } from '../users/usersSlice';
 
-import { useAddPostMutation, useGetUsersQuery } from '../api/apiSlice';
-
 const AddPostForm = () => {
-  //   const dispatch = useDispatch();
-
   const navigate = useNavigate();
 
   const [title, setTitle] = useState('');
   const [content, setContent] = useState('');
   const [userId, setUserId] = useState('');
-  // const [addRequestStatus, setAddRequestStatus] = useState('idle');
 
-  // const users = useSelector(selectAllUsers);
-  const { data: users } = useGetUsersQuery();
+  // const { data: users } = useGetUsersQuery();
+  const users = useSelector((state) => selectAllUsers(state));
 
   const onTitleChanged = (e) => setTitle(e.target.value);
   const onContentChanged = (e) => setContent(e.target.value);
   const onAuthorChanged = (e) => setUserId(e.target.value);
 
-  const [addNewPost, { isLoading: isAddingNewPost, error }] =
-    useAddPostMutation();
+  const [addNewPost, { isLoading: isAddingNewPost }] = useAddNewPostMutation();
 
-  const canSave =
-    [title, content, userId].every(Boolean) && isAddingNewPost === false;
+  const canSave = [title, content, userId].every(Boolean) && !isAddingNewPost;
 
   const onSavePostClicked = async () => {
     if (canSave) {
@@ -38,7 +31,6 @@ const AddPostForm = () => {
           title,
           body: content,
           userId: Number(userId),
-          reactions: { thumbsUp: 0, wow: 0, heart: 0, rocket: 0, coffee: 0 },
         }).unwrap();
 
         setTitle('');

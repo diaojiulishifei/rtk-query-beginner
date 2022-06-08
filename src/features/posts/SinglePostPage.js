@@ -1,23 +1,21 @@
-import { useSelector } from 'react-redux';
-import { selectPostById } from './postsSlice';
-
 import PostAuthor from './PostAuthor';
 import TimeAgo from './TimeAgo';
 import ReactionButtons from './ReactionButtons';
+import { Spinner } from '../../components/Spinner';
 
 import { useParams } from 'react-router-dom';
 import { Link } from 'react-router-dom';
-import { useGetPostByIdQuery } from '../api/apiSlice';
+import { useGetPostQuery } from '../api/apiSlice';
 
 const SinglePostPage = () => {
   const { postId } = useParams();
 
-  const { data: post, isLoading, error } = useGetPostByIdQuery(postId);
+  const { data: post, isFetching, isSuccess } = useGetPostQuery(postId);
 
-  if (isLoading) {
+  if (isFetching) {
     return (
       <section>
-        <h2>Loading...</h2>
+        <Spinner text="Loading..." />
       </section>
     );
   }

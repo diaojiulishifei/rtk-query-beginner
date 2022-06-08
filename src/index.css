@@ -112,6 +112,10 @@ textarea {
   color: hsla(0, 0%, 0%, 0.75);
 }
 
+.posts-container.disabled {
+  opacity: 0.5;
+}
+
 .excerpt {
   font-style: italic;
 }

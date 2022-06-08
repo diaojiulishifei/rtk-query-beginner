@@ -3,8 +3,6 @@ import TimeAgo from './TimeAgo';
 import ReactionButtons from './ReactionButtons';
 import { Link } from 'react-router-dom';
 
-import { useSelector } from 'react-redux';
-import { selectPostById } from './postsSlice';
 import { useGetPostByIdQuery } from '../api/apiSlice';
 
 const PostsExcerpt = ({ post }) => {

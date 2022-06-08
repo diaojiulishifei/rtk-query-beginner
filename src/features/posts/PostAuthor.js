@@ -1,9 +1,9 @@
 import { useSelector } from 'react-redux';
 import { useGetUserByIdQuery, useGetUsersQuery } from '../api/apiSlice';
-import { selectAllUsers } from '../users/usersSlice';
+import { selectAllUsers, selectUserById } from '../users/usersSlice';
 
 const PostAuthor = ({ userId }) => {
-  const { data: user } = useGetUserByIdQuery(userId);
+  const user = useSelector((state) => selectUserById(state, userId));
   //   console.log(user);
 
   return <span>by {user ? user.name : 'Unknown author'}</span>;

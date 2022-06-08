@@ -8,28 +8,48 @@ export const apiSlice = createApi({
     // posts apis
     getPosts: builder.query({
       query: () => '/posts',
-      providesTags: ['Post'],
+      providesTags: (result = [], error, arg) => [
+        { type: 'Post', id: 'LIST' },
+        ...result.map(({ id }) => ({ type: 'Post', id })),
+      ],
     }),
-    getPostById: builder.query({
-      query: (id) => `/posts/${id}`,
+    getPost: builder.query({
+      query: (postId) => `/posts/${postId}`,
+      providesTags: (result, error, arg) => [{ type: 'Post', id: arg }],
     }),
     getPostsByUserId: builder.query({
       query: (userId) => `/posts?${userId}`,
     }),
-    // add post
-    addPost: builder.mutation({
+    addNewPost: builder.mutation({
       query: (post) => ({
         url: '/posts',
         method: 'POST',
-        body: post,
+        body: {
+          ...post,
+          userId: Number(post.userId),
+          date: new Date().toISOString(),
+          reactions: {
+            thumbsUp: 0,
+            wow: 0,
+            heart: 0,
+            rocket: 0,
+            coffee: 0,
+          },
+        },
       }),
-      invalidatesTags: ['Post'],
+      invalidatesTags: [{ type: 'Post', id: 'LIST' }],
     }),
-    // --------------
-    // users apis
+    editPost: builder.mutation({
+      query: (initialPost) => ({
+        url: `/posts/${initialPost.id}`,
+        method: 'PATCH',
+        body: { ...initialPost, date: new Date().toISOString() },
+      }),
+      invalidatesTags: (result, error, arg) => [{ type: 'Post', id: arg.id }],
+    }),
+    // ------------------------
     getUsers: builder.query({
       query: () => '/users',
-      providesTags: ['User'],
     }),
     getUserById: builder.query({
       query: (id) => `/users/${id}`,
@@ -39,9 +59,10 @@ export const apiSlice = createApi({
 
 export const {
   useGetPostsQuery,
+  useGetPostQuery,
+  useAddNewPostMutation,
+  useEditPostMutation,
   useGetPostsByUserIdQuery,
   useGetUsersQuery,
-  useAddPostMutation,
-  useGetPostByIdQuery,
   useGetUserByIdQuery,
 } = apiSlice;
