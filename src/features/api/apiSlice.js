@@ -3,21 +3,17 @@ import { createApi, fetchBaseQuery } from '@reduxjs/toolkit/query/react';
 export const apiSlice = createApi({
   reducerPath: 'api',
   baseQuery: fetchBaseQuery({ baseUrl: 'http://localhost:3600' }),
-  tagTypes: ['Posts', 'Users'],
+  tagTypes: ['Post', 'User'],
   endpoints: (builder) => ({
     // posts apis
     getPosts: builder.query({
       query: () => '/posts',
-      transformResponse: (response) =>
-        response.sort((a, b) => {
-          return b.id - a.id;
-        }),
-      providesTags: ['Posts'],
+      providesTags: ['Post'],
     }),
     getPostById: builder.query({
       query: (id) => `/posts/${id}`,
     }),
-    getPostsForUserByUserId: builder.query({
+    getPostsByUserId: builder.query({
       query: (userId) => `/posts?${userId}`,
     }),
     // add post
@@ -27,17 +23,13 @@ export const apiSlice = createApi({
         method: 'POST',
         body: post,
       }),
-      invalidatesTags: ['Posts'],
+      invalidatesTags: ['Post'],
     }),
     // --------------
     // users apis
     getUsers: builder.query({
       query: () => '/users',
-      transformResponse: (response) =>
-        response.sort((a, b) => {
-          return b.id - a.id;
-        }),
-      providesTags: ['Users'],
+      providesTags: ['User'],
     }),
     getUserById: builder.query({
       query: (id) => `/users/${id}`,
@@ -47,7 +39,7 @@ export const apiSlice = createApi({
 
 export const {
   useGetPostsQuery,
-  useGetPostsForUserByUserIdQuery,
+  useGetPostsByUserIdQuery,
   useGetUsersQuery,
   useAddPostMutation,
   useGetPostByIdQuery,
