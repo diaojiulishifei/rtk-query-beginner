@@ -2,7 +2,7 @@ import { useState } from 'react';
 import { useSelector } from 'react-redux';
 import { useNavigate } from 'react-router-dom';
 
-import { useAddNewPostMutation, useGetUsersQuery } from '../api/apiSlice';
+import { useAddNewPostMutation } from '../api/apiSlice';
 import { selectAllUsers } from '../users/usersSlice';
 
 const AddPostForm = () => {
@@ -12,7 +12,6 @@ const AddPostForm = () => {
   const [content, setContent] = useState('');
   const [userId, setUserId] = useState('');
 
-  // const { data: users } = useGetUsersQuery();
   const users = useSelector((state) => selectAllUsers(state));
 
   const onTitleChanged = (e) => setTitle(e.target.value);
@@ -26,7 +25,6 @@ const AddPostForm = () => {
   const onSavePostClicked = async () => {
     if (canSave) {
       try {
-        // setAddRequestStatus('pending');
         await addNewPost({
           title,
           body: content,
@@ -39,8 +37,6 @@ const AddPostForm = () => {
         navigate('/');
       } catch (err) {
         console.error('Failed to save the post', err);
-      } finally {
-        // setAddRequestStatus('idle');
       }
     }
   };

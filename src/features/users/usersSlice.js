@@ -1,14 +1,12 @@
-import {
-  createSlice,
-  createAsyncThunk,
-  createSelector,
-} from '@reduxjs/toolkit';
+import { createSelector } from '@reduxjs/toolkit';
 
 import { apiSlice } from '../api/apiSlice';
 
-// const USERS_URL = 'https://jsonplaceholder.typicode.com/users';
+/* Temporarily ignore adapter - we'll use this again shortly
+const usersAdapter = createEntityAdapter()
 
-// const initialState = [];
+const initialState = usersAdapter.getInitialState()
+*/
 
 export const selectUsersResult = apiSlice.endpoints.getUsers.select();
 
@@ -25,7 +23,11 @@ export const selectUserById = createSelector(
   (users, userId) => users.find((user) => user.id === userId)
 );
 
-// export const selectUserById = (state, userId) =>
-//   state.users.find((user) => user.id === userId);
+/* Temporarily ignore selectors - we'll come back to this later
+export const {
+  selectAll: selectAllUsers,
+  selectById: selectUserById,
+} = usersAdapter.getSelectors((state) => state.users)
+*/
 
 // export default usersSlice.reducer;

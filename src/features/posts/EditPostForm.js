@@ -1,37 +1,36 @@
 import { useState } from 'react'
-import { useDispatch, useSelector } from 'react-redux'
-import { selectPostById, updatePost, deletePost } from './postsSlice'
-import { useParams, useNavigate } from 'react-router-dom'
+import { useSelector } from 'react-redux';
+import { useParams, useNavigate } from 'react-router-dom';
 
-import { selectAllUsers } from "../users/usersSlice";
+import { selectAllUsers } from '../users/usersSlice';
 import { Spinner } from '../../components/Spinner';
 import {
   useGetPostQuery,
   useEditPostMutation,
-  useGetUsersQuery,
+  useDeletePostMutation,
 } from '../api/apiSlice';
 
 const EditPostForm = () => {
   const { postId } = useParams();
   const navigate = useNavigate();
 
-  const { data: post } = useGetPostQuery(postId);
-  const [updatePost, { isLoading }] = useEditPostMutation();
+  const { data: post, isLoading: isLoadingGetPost } = useGetPostQuery(
+    Number(postId)
+  );
+  const [updatePost] = useEditPostMutation(Number(postId));
+  const [deletePost] = useDeletePostMutation(Number(postId));
 
-  const { data: users } = useGetUsersQuery();
+  const users = useSelector((state) => selectAllUsers(state));
 
   const [title, setTitle] = useState(post?.title);
   const [content, setContent] = useState(post?.body);
   const [userId, setUserId] = useState(post?.userId);
-  const [requestStatus, setRequestStatus] = useState('idle');
-
-  const dispatch = useDispatch();
 
   const onTitleChanged = (e) => setTitle(e.target.value);
   const onContentChanged = (e) => setContent(e.target.value);
   const onAuthorChanged = (e) => setUserId(Number(e.target.value));
 
-  const canSave = [title, content, userId].every(Boolean) && !isLoading;
+  const canSave = [title, content, userId].every(Boolean) && !isLoadingGetPost;
 
   const onSavePostClicked = async () => {
     if (canSave) {
@@ -54,10 +53,9 @@ const EditPostForm = () => {
     }
   };
 
-  const onDeletePostClicked = () => {
+  const onDeletePostClicked = async () => {
     try {
-      setRequestStatus('pending');
-      dispatch(deletePost({ id: post.id })).unwrap();
+      await deletePost(Number(postId)).unwrap();
 
       setTitle('');
       setContent('');
@@ -65,8 +63,6 @@ const EditPostForm = () => {
       navigate('/');
     } catch (err) {
       console.error('Failed to delete the post', err);
-    } finally {
-      setRequestStatus('idle');
     }
   };
 
@@ -75,6 +71,14 @@ const EditPostForm = () => {
       {user.name}
     </option>
   ));
+
+  if (isLoadingGetPost) {
+    return (
+      <section>
+        <Spinner text="Loading..." />
+      </section>
+    );
+  }
 
   if (!post) {
     return (

@@ -343,34 +343,6 @@
       },
       "id": 8,
       "date": "2022-05-31T16:59:02.226Z"
-    },
-    {
-      "title": "New Post 3",
-      "body": "New Post 3 Content! Added some words, add some more words",
-      "userId": 8,
-      "date": "2022-06-08T10:58:31.214Z",
-      "reactions": {
-        "thumbsUp": 0,
-        "wow": 0,
-        "heart": 0,
-        "rocket": 0,
-        "coffee": 0
-      },
-      "id": 9
-    },
-    {
-      "title": "New Post 4",
-      "body": "New Post 4",
-      "userId": 6,
-      "date": "2022-06-08T11:13:06.065Z",
-      "reactions": {
-        "thumbsUp": 0,
-        "wow": 0,
-        "heart": 0,
-        "rocket": 0,
-        "coffee": 0
-      },
-      "id": 10
     }
   ]
 }

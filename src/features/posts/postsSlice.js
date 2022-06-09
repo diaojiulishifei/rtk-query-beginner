@@ -150,12 +150,8 @@ export const getCount = (state) => state.posts.count;
 
 export const selectPostsByUser = createSelector(
   [
-    (state, posts) => {
-      console.log(posts);
-      return posts;
-    },
+    selectAllPosts,
     (state, userId) => {
-      console.log(userId);
       return userId;
     },
   ],

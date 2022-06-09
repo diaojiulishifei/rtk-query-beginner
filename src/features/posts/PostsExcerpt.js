@@ -3,7 +3,6 @@ import TimeAgo from './TimeAgo';
 import ReactionButtons from './ReactionButtons';
 import { Link } from 'react-router-dom';
 
-import { useGetPostByIdQuery } from '../api/apiSlice';
 
 const PostsExcerpt = ({ post }) => {
   // const { data: post, isLoading, error } = useGetPostByIdQuery(postId);

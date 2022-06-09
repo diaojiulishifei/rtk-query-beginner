@@ -10,7 +10,7 @@ import { useGetPostQuery } from '../api/apiSlice';
 const SinglePostPage = () => {
   const { postId } = useParams();
 
-  const { data: post, isFetching, isSuccess } = useGetPostQuery(postId);
+  const { data: post, isFetching } = useGetPostQuery(Number(postId));
 
   if (isFetching) {
     return (
