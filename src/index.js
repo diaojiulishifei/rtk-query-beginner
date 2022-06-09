@@ -6,9 +6,9 @@ import { store } from './app/store';
 import { Provider } from 'react-redux';
 import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
 
-import { apiSlice } from './features/api/apiSlice';
+import { extendedApiSlice } from './features/users/usersSlice';
 
-store.dispatch(apiSlice.endpoints.getUsers.initiate());
+store.dispatch(extendedApiSlice.endpoints.getUsers.initiate());
 
 ReactDOM.render(
   <React.StrictMode>
