@@ -309,10 +309,10 @@
       "body": "dignissimos aperiam dolorem qui eum\nfacilis quibusdam animi sint suscipit qui sint possimus cum\nquaerat magni maiores excepturi\nipsam ut commodi dolor voluptatum modi aut vitae",
       "reactions": {
         "thumbsUp": 4,
-        "wow": 0,
-        "heart": 0,
-        "rocket": 0,
-        "coffee": 5
+        "wow": 1,
+        "heart": 2,
+        "rocket": 2,
+        "coffee": 7
       },
       "date": "2022-05-28T16:59:02.226Z"
     },
@@ -321,11 +321,11 @@
       "body": "New Post 1 content 33333",
       "userId": 5,
       "reactions": {
-        "thumbsUp": 0,
-        "wow": 0,
-        "heart": 0,
-        "rocket": 0,
-        "coffee": 0
+        "thumbsUp": 1,
+        "wow": 1,
+        "heart": 6,
+        "rocket": 1,
+        "coffee": 2
       },
       "id": 7,
       "date": "2022-06-08T11:12:22.457Z"
@@ -335,11 +335,11 @@
       "body": "Yo yo yo content",
       "userId": 4,
       "reactions": {
-        "thumbsUp": 0,
-        "wow": 0,
-        "heart": 0,
-        "rocket": 0,
-        "coffee": 0
+        "thumbsUp": 2,
+        "wow": 5,
+        "heart": 5,
+        "rocket": 1,
+        "coffee": 16
       },
       "id": 8,
       "date": "2022-06-09T01:22:17.156Z"

@@ -6,6 +6,7 @@ const UsersList = () => {
   // const users = useSelector(selectAllUsers)
 
   const users = useSelector((state) => selectAllUsers(state));
+  console.log(users);
 
   const renderedUsers = users?.map((user) => (
     <li key={user.id}>
